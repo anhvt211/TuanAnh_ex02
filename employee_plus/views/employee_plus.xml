@@ -20,7 +20,8 @@
                     </button>
                 </xpath>
                 <xpath expr="//field[@name='coach_id']" position="after">
-                    <field name="years_of_experience" widget="bold_red"/>
+                    <field name="is_years_of_experience" invisible="1"/>
+                    <field name="years_of_experience" widget="bold_red"  attrs="{'readonly': [('is_years_of_experience', '=', False)]}"/>
                     <field name="certification_ids">
                         <tree editable="bottom">
                             <field name="name"/>
