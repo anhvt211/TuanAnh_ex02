@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_do_something" class="oe_stat_button" icon="fa-briefcase"
+                            type="object" groups="employee_plus.group_hr_employee_experience_manager">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field string="Update" name="years_of_experience" readonly="1"/>
+                            </span>
+                            <span class="o_stat_text">Update</span>
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="years_of_experience" widget="bold_red"/>
+                    <field name="certification_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="years"/>
+                        </tree>
+                    </field>
+                    <field name="has_certifications" invisible="1"/>
+                    <field name="skills_ids" attrs="{'invisible': [('has_certifications', '=', False)]}">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="level"/>
+                        </tree>
+                    </field>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_date_deadline']" position="replace">
+<!--                <field name="activity_ids" invisible="1"/>-->
+                    <field name="years_of_experience"/>
+                    <field name="certification_ids" widget="many2many_tags"/>
+                    <field name="skills_ids" widget="many2many_tags"/>
+                </xpath>
+
+<!--                <xpath expr="//tree" position="inside">-->
+<!--                    <field name="years_of_experience"/>-->
+<!--                    <field name="certification_ids" widget="many2many_tags"/>-->
+<!--                    <field name="skills_ids" widget="many2many_tags"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

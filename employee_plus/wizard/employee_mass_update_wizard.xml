@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_mass_update_wizard_form" model="ir.ui.view">
+            <field name="name">employee.mass.update.wizard.form</field>
+            <field name="model">employee.mass.update.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Mass Update Employee Data">
+                    <group>
+                        <field name="years_of_experience"/>
+                        <field name="certification_ids"/>
+                        <field name="skills_ids"/>
+                    </group>
+                    <group>
+                        <field name="department_id"/>
+                        <field name="job_id"/>
+                    </group>
+                    <footer>
+                        <button string="Update" type="object" name="action_update_employee_data" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_employee_mass_update_wizard" model="ir.actions.act_window">
+            <field name="name">Mass Update Employees</field>
+            <field name="res_model">employee.mass.update.wizard</field>
+            <field name="binding_model_id" ref="model_hr_employee"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_employee_mass_update_wizard_form"/>
+        </record>
+
+
+    </data>
+</odoo>
