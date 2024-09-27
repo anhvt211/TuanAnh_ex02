@@ -15,8 +15,8 @@ class Employee_Plus(models.Model):
     @api.constrains('years_of_experience')
     def _check_years_of_experience(self):
         for rec in self:
-            if rec.years_of_experience > 30:
-                raise ValidationError("Years of experience cannot exceed 30 years.")
+            if  rec.years_of_experience > 30 or rec.years_of_experience < 0:
+                raise ValidationError("Years of experience cannot exceed <0 and >30 years.")
 
     def action_do_something(self):
         if not self.env.user.has_group('employee_plus.group_hr_employee_experience_manager'):
