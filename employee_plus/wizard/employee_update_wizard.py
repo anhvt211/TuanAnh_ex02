@@ -26,24 +26,17 @@ class Employee_Mass_Update_Wizard(models.TransientModel):
         ids = self.env.context.get('active_ids')
         employees = self.env['hr.employee'].browse(ids)
 
-
-        if self.years_of_experience < 5:
-            raise UserError('Nhân viên này chưa có đủ 5 năm kinh nghiệm để được cập nhật.')
-            # Thực hiện cập nhật dữ liệu nếu điều kiện thỏa mãn
-        self.employee_id.write({
-            'some_field': 'New Value'
-        })
-        return {'type': 'ir.actions.act_window_close'}
-
         for employee in employees:
+            if employee.years_of_experience < 5:
+                raise UserError('This employee does not have enough 5 years of experience to be updated.')
+                # Thực hiện cập nhật dữ liệu nếu điều kiện thỏa mãn
+            # testt lai
+            # employee.write({
+            #     'some_field': 'New Value'
+            # })
             if self.years_of_experience:
                 employee.write({'years_of_experience':self.years_of_experience})
             if self.skills_ids:
                 employee.write({'skills_ids': [(4, skills.id) for skills in self.skills_ids]})
             if self.certification_ids:
                 employee.write({'certification_ids': [(4, cert.id) for cert in self.certification_ids]})
-    # def set_experience(self):
-    #     ids = self.env.context.get('active_ids')
-    #     employees = self.env['hr.employee'].browse(ids)
-    #     for employee in employees:
-    #         employee.years_of_experience = self.years_of_experience
